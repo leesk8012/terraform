@@ -18,3 +18,4 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s
 https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
 https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html
 https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
+https://www.terraform.io/language/expressions/types

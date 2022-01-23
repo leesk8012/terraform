@@ -1,6 +1,6 @@
 resource "aws_iam_role" "leesk-role" {
-  name = "eks-leesk-role"
-  description = "leesk"
+  name = "${var.eks_cluster_name}-role"
+  description = "Created by Terraform"
 
   assume_role_policy = <<POLICY
 {
