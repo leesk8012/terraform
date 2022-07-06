@@ -25,4 +25,5 @@ jobs:
         run: |
           pwd
           ls -alh
-          terraform
+          cat /etc/issue
+          terraform -version
