@@ -18,7 +18,7 @@ jobs:
         run: mkdir -p ~/.aws
 
       - name: execute aws-cli via docker image
-        run: docker run --rm -it -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
+        run: docker run --rm -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
 
       - name: My First Step
         run: |
