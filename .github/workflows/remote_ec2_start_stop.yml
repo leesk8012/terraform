@@ -1,0 +1,25 @@
+# This is a basic workflow that is manually triggered
+name: Manual workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+jobs:
+# stop-instance:
+  start-instance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+        
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        
+      - name: My First Step
+        run: |
+          pwd
+          ls -alh
+          cat /etc/issue
+          terraform -version
