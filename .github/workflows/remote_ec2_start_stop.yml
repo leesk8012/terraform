@@ -17,8 +17,8 @@ jobs:
       - name: Check for dockerenv file
         run: mkdir -p ~/.aws
 
-      - name: Checkout source code
-        uses: docker run --rm -it -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
+      - name: execute aws-cli via docker image
+        run: docker run --rm -it -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
 
       - name: My First Step
         run: |
