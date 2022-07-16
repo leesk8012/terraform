@@ -6,17 +6,20 @@ name: Manual workflow
 on:
   workflow_dispatch:
 
+env:
+  AWS_PROFILE: test
+
 jobs:
 # stop-instance:
   start-instance:
     runs-on: ubuntu-latest
     steps:
       - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
-        
+        run: mkdir -p ~/.aws
+
       - name: Checkout source code
-        uses: actions/checkout@v2
-        
+        uses: docker run --rm -it -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
+
       - name: My First Step
         run: |
           pwd
