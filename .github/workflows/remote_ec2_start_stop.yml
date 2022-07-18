@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create AWS credential directory
-        run: mkdir -p .aws
+        run: mkdir -p aws_config
 
       - name: Create AWS credential file
         uses: 1arp/create-a-file-action@0.2
         with:
-          path: '.aws'
+          path: 'aws_config'
           file: 'credentials'
           content: |
             [default]
@@ -30,8 +30,8 @@ jobs:
       - name: My First Step
         run: |
           pwd
-          ls -alh .aws
-          cat .aws/credentials
+          ls -alh aws_config
+          cat aws_config/credentials
 
       - name: execute aws-cli via docker image
-        run: docker run --rm -v .aws:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2 --dry-run
+        run: docker run --rm -v aws_config:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2 --dry-run
