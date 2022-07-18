@@ -10,13 +10,9 @@ on:
 #   AWS_PROFILE: default
 
 jobs:
-# start-instance:
-  stop-instance:
+  start-instance:
     runs-on: ubuntu-latest
     steps:
-      # - name: Create AWS credential directory
-      #   run: mkdir -p ${GITHUB_WORKSPACE}/aws_config
-
       - name: Create AWS credential file
         uses: 1arp/create-a-file-action@0.2
         with:
@@ -37,12 +33,31 @@ jobs:
             region=ap-northeast-2
             output=json
 
-      - name: My First Step
-        run: |
-          pwd
-          ls -alh ${GITHUB_WORKSPACE}
-          cat ${GITHUB_WORKSPACE}/aws_config/credentials
-          cat ${GITHUB_WORKSPACE}/aws_config/config
+      - name: execute aws-cli via docker image
+        run: docker run --rm -v ${GITHUB_WORKSPACE}/aws_config:/root/.aws amazon/aws-cli:2.7.16 ec2 start-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2
+
+  stop-instance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create AWS credential file
+        uses: 1arp/create-a-file-action@0.2
+        with:
+          path: 'aws_config'
+          file: 'credentials'
+          content: |
+            [default]
+            aws_access_key_id=${{ secrets.ACCESS_KEY }}
+            aws_secret_access_key=${{ secrets.SECRET_KEY }}
+
+      - name: Create AWS config file
+        uses: 1arp/create-a-file-action@0.2
+        with:
+          path: 'aws_config'
+          file: 'config'
+          content: |
+            [default]
+            region=ap-northeast-2
+            output=json
 
       - name: execute aws-cli via docker image
-        run: docker run --rm -v ${GITHUB_WORKSPACE}/aws_config:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2 --dry-run
+        run: docker run --rm -v ${GITHUB_WORKSPACE}/aws_config:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2
