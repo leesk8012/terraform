@@ -6,8 +6,8 @@ name: Manual workflow
 on:
   workflow_dispatch:
 
-env:
-  AWS_PROFILE: default
+# env:
+#   AWS_PROFILE: default
 
 jobs:
 # start-instance:
