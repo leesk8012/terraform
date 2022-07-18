@@ -32,7 +32,6 @@ jobs:
           pwd
           ls -alh ~/.aws
           cat ~/.aws/credentials
-s
+
       - name: execute aws-cli via docker image
         run: docker run --rm -v ~/.aws:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids ${{ secrets.INSTANCE_ID }} --region ap-northeast-2 --dry-run
-s
