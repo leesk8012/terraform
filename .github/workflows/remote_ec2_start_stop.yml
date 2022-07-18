@@ -10,15 +10,25 @@ env:
   AWS_PROFILE: test
 
 jobs:
-# stop-instance:
-  start-instance:
+# start-instance:
+  stop-instance:
     runs-on: ubuntu-latest
     steps:
       - name: Check for dockerenv file
         run: mkdir -p ~/.aws
 
+      - name: Create credential file
+        uses: 1arp/create-a-file-action@0.2
+        with:
+          path: '~/.aws'
+          file: 'credentials'
+          content: |
+            [default]
+            aws_access_key_id=${{ secrets.ACCESS_KEY }}
+            aws_secret_access_key=${{ secrets.SECRET_KEY }}
+
       - name: execute aws-cli via docker image
-        run: docker run --rm -v ~/.aws:/root/.aws -e AWS_PROFILE amazon/aws-cli:2.7.16 ls
+        run: docker run --rm -v ~/.aws:/root/.aws amazon/aws-cli:2.7.16 ec2 stop-instances --instance-ids {{ secrets.INSTANCE_ID }} --region ap-northeast-2 --dry-run
 
       - name: My First Step
         run: |
