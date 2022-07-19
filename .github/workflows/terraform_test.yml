@@ -1,7 +1,7 @@
 name: terraform plan test
 on:
     push:
-      branches: [ main ]
+      branches: [ dev ]
 jobs:
   container-test-job:
     runs-on: ubuntu-latest

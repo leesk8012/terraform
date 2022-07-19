@@ -5,6 +5,11 @@ name: Manual workflow
 # or API.
 on:
   workflow_dispatch:
+    inputs:
+      job:
+        description: 'Job to run.'
+        required: true
+        default: 'stop'
 
 # env:
 #   AWS_PROFILE: default
@@ -12,6 +17,7 @@ on:
 jobs:
   start-instance:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.job == 'start'}}
     steps:
       - name: Create AWS credential file
         uses: 1arp/create-a-file-action@0.2
@@ -38,6 +44,7 @@ jobs:
 
   stop-instance:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.job == 'stop'}}
     steps:
       - name: Create AWS credential file
         uses: 1arp/create-a-file-action@0.2
