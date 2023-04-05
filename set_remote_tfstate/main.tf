@@ -34,9 +34,6 @@ resource "aws_s3_bucket_acl" "rational_root_logs_acl" {
 // Terraform state 저장용 S3 버킷
 resource "aws_s3_bucket" "terraform-state" {
   bucket = "rational_root.terraform.state"
-  versioning {
-    enabled = true
-  }
   tags = {
     Name = "terraform state"
   }
@@ -52,4 +49,11 @@ resource "aws_s3_bucket" "terraform-state" {
 resource "aws_s3_bucket_acl" "terraform_state_acl" {
   bucket = aws_s3_bucket.terraform-state.id
   acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
+  bucket = aws_s3_bucket.terraform-state.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
