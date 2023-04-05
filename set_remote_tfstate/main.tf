@@ -19,21 +19,21 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
 // 로그 저장용 버킷
 resource "aws_s3_bucket" "logs" {
-  bucket = "rational_root.logs"
+  bucket = "rational-root.logs"
   tags = {
-    Name        = "rational_root_logs"
+    Name        = "rational-root_logs"
     Environment = "Dev"
   }
 }
 
-resource "aws_s3_bucket_acl" "rational_root_logs_acl" {
+resource "aws_s3_bucket_acl" "rational-root_logs_acl" {
   bucket = aws_s3_bucket.logs.id
   acl    = "log-delivery-write"
 }
 
 // Terraform state 저장용 S3 버킷
 resource "aws_s3_bucket" "terraform-state" {
-  bucket = "rational_root.terraform.state"
+  bucket = "rational-root.terraform.state"
   tags = {
     Name = "terraform state"
   }
