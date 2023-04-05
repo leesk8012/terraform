@@ -37,7 +37,7 @@ resource "aws_s3_bucket" "terraform-state" {
   versioning {
     enabled = true
   }
-  tags {
+  tags = {
     Name = "terraform state"
   }
   logging {
