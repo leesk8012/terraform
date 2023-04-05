@@ -36,4 +36,4 @@ jobs:
         run: |
           cd set_remote_tfstate
           terraform init
-          terraform apply --${{ inputs.prompt }}
+          terraform apply -auto-approve
